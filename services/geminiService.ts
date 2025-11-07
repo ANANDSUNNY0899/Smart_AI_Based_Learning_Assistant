@@ -3,7 +3,7 @@ import { QuizQuestion } from '../types';
 
 // Fix: Use process.env.API_KEY as required by the coding guidelines. This also resolves the TypeScript error.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-const textModel = 'gemini-2.5-pro';
+const textModel = 'gemini-2.5-flash';
 const imageModel = 'gemini-2.5-flash-image';
 
 export const explainConcept = async (topic: string): Promise<string> => {
