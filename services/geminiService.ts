@@ -1,5 +1,4 @@
-
-import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenAI, Type, Modality } from "@google/genai";
 import { QuizQuestion } from '../types';
 
 if (!process.env.API_KEY) {
@@ -7,12 +6,13 @@ if (!process.env.API_KEY) {
 }
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-const model = 'gemini-2.5-pro';
+const textModel = 'gemini-2.5-pro';
+const imageModel = 'gemini-2.5-flash-image';
 
 export const explainConcept = async (topic: string): Promise<string> => {
     try {
         const response = await ai.models.generateContent({
-            model,
+            model: textModel,
             contents: `Please provide a clear and concise explanation of the following concept: "${topic}". Structure the explanation well for a beginner.`,
         });
         return response.text;
@@ -25,7 +25,7 @@ export const explainConcept = async (topic: string): Promise<string> => {
 export const simplifyExplanation = async (topic: string, currentExplanation: string): Promise<string> => {
     try {
         const response = await ai.models.generateContent({
-            model,
+            model: textModel,
             contents: `The current explanation for "${topic}" is: "${currentExplanation}". Please provide a much simpler version of this explanation, using analogies if possible, suitable for someone with very little background knowledge.`,
         });
         return response.text;
@@ -38,7 +38,7 @@ export const simplifyExplanation = async (topic: string, currentExplanation: str
 export const elaborateExplanation = async (topic: string, currentExplanation: string): Promise<string> => {
     try {
         const response = await ai.models.generateContent({
-            model,
+            model: textModel,
             contents: `The current explanation for "${topic}" is: "${currentExplanation}". Please elaborate on this explanation, providing more details, examples, and covering more advanced aspects of the topic.`,
         });
         return response.text;
@@ -51,7 +51,7 @@ export const elaborateExplanation = async (topic: string, currentExplanation: st
 export const generateQuiz = async (topic: string): Promise<QuizQuestion[]> => {
     try {
         const response = await ai.models.generateContent({
-            model,
+            model: textModel,
             contents: `Generate a 5-question multiple-choice quiz about "${topic}". For each question, provide 4 options and clearly indicate the correct answer.`,
             config: {
                 responseMimeType: "application/json",
@@ -96,5 +96,41 @@ export const generateQuiz = async (topic: string): Promise<QuizQuestion[]> => {
     } catch (error) {
         console.error("Error generating quiz:", error);
         throw new Error("Failed to generate quiz.");
+    }
+};
+
+export const editImage = async (base64ImageData: string, mimeType: string, prompt: string): Promise<string> => {
+    try {
+        const response = await ai.models.generateContent({
+            model: imageModel,
+            contents: {
+                parts: [
+                    {
+                        inlineData: {
+                            data: base64ImageData,
+                            mimeType: mimeType,
+                        },
+                    },
+                    {
+                        text: prompt,
+                    },
+                ],
+            },
+            config: {
+                responseModalities: [Modality.IMAGE],
+            },
+        });
+
+        for (const part of response.candidates[0].content.parts) {
+            if (part.inlineData) {
+                return part.inlineData.data;
+            }
+        }
+
+        throw new Error("No image data found in the response.");
+
+    } catch (error) {
+        console.error("Error editing image:", error);
+        throw new Error("Failed to edit image with AI.");
     }
 };

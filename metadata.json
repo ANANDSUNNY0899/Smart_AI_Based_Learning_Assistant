@@ -1,5 +1,5 @@
 {
-  "name": "AI Learning Assistant",
-  "description": "An interactive AI-powered assistant to help you learn new concepts, get better explanations, and test your knowledge with quizzes while tracking your progress.",
+  "name": "AI Learning & Image Editing Assistant",
+  "description": "An interactive AI assistant to help you learn new concepts, test your knowledge with quizzes, and edit images using text prompts.",
   "requestFramePermissions": []
 }
