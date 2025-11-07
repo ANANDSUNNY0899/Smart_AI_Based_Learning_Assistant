@@ -34,8 +34,8 @@ All AI capabilities are powered by the **Google Gemini API** via the `@google/ge
 ### Core Components
 - **`App.tsx`**: The main application component. It manages the global state, including the active view (Learning Assistant vs. Image Editor), and orchestrates all other components.
 - **`services/geminiService.ts`**: This is a crucial service module that abstracts all communication with the Gemini API. It contains dedicated functions for:
-    - Explaining concepts (`gemini-2.5-pro`).
-    - Generating quizzes with a JSON schema (`gemini-2.5-pro`).
+    - Explaining concepts (`gemini-2.5-flash`).
+    - Generating quizzes with a JSON schema (`gemini-2.5-flash`).
     - Editing images based on a prompt (`gemini-2.5-flash-image`).
 - **`components/ChatInterface.tsx`**: Renders the conversation history for the learning assistant.
 - **`components/QuizView.tsx`**: Manages the state and UI for the interactive quiz experience.
