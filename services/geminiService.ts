@@ -1,10 +1,7 @@
 import { GoogleGenAI, Type, Modality } from "@google/genai";
 import { QuizQuestion } from '../types';
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-}
-
+// Fix: Use process.env.API_KEY as required by the coding guidelines. This also resolves the TypeScript error.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 const textModel = 'gemini-2.5-pro';
 const imageModel = 'gemini-2.5-flash-image';
@@ -89,7 +86,8 @@ export const generateQuiz = async (topic: string): Promise<QuizQuestion[]> => {
             }
         });
 
-        const jsonString = response.text;
+        // Fix: Trim the response text before parsing as JSON, as recommended by guidelines.
+        const jsonString = response.text.trim();
         const parsed = JSON.parse(jsonString);
         return parsed.quiz;
 

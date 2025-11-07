@@ -42,21 +42,72 @@ All AI capabilities are powered by the **Google Gemini API** via the `@google/ge
 - **`components/ProgressTracker.tsx`**: Displays the bar chart of the user's quiz history.
 - **`components/ImageEditor.tsx`**: A self-contained component for the image editing feature. It handles image uploading, state management for the prompt and generated images, and displays the results.
 
+## Running Locally
+
+To run this project on your local machine, you'll need to have Node.js and npm installed. Follow these steps to get your development environment set up.
+
+### 1. Clone the Repository
+First, if you don't have the project files, clone the repository to your local machine:
+```bash
+git clone <repository-url>
+cd <repository-directory>
+```
+
+### 2. Install Dependencies
+Install the required npm packages using the terminal:
+```bash
+npm install
+```
+
+### 3. Set Up Your API Key
+This project requires a Google Gemini API key to function. The application is configured to read the key from an environment variable named `API_KEY`.
+
+You need to make this key available to the development server when you run it. Open your terminal and use one of the commands below, depending on your operating system.
+
+**On macOS / Linux:**
+You can set the environment variable for your current terminal session like this:
+```bash
+export API_KEY="YOUR_GEMINI_API_KEY"
+```
+After setting the key, you can run the server in the same terminal. Alternatively, for a single-command approach:
+```bash
+API_KEY="YOUR_GEMINI_API_KEY" npm run dev
+```
+
+**On Windows (Command Prompt):**
+```cmd
+set API_KEY="YOUR_GEMINI_API_KEY"
+```
+
+**On Windows (PowerShell):**
+```powershell
+$env:API_KEY="YOUR_GEMINI_API_KEY"
+```
+
+Replace `"YOUR_GEMINI_API_KEY"` with your actual key obtained from [Google AI Studio](https://aistudio.google.com/app/apikey).
+
+### 4. Run the Development Server
+Once the dependencies are installed and your API key is set, start the local development server:
+```bash
+npm run dev
+```
+The application should now be running. Open your web browser and navigate to the URL provided in the terminal (usually `http://localhost:5173`).
+
+
 ## Project Structure
 ```
 .
 ├── index.html            # Main HTML entry point
+├── vite.config.ts        # Vite configuration
+├── package.json          # Project dependencies and scripts
+├── tailwind.config.js    # Tailwind CSS configuration
+├── README.md             # This file
 ├── index.tsx             # React app root
 ├── App.tsx               # Main application component
 ├── types.ts              # Shared TypeScript types
-├── metadata.json         # Application metadata
-├── README.md             # This file
+├── style.css             # Main stylesheet for Tailwind
 ├── components/
-│   ├── ChatInterface.tsx   # Chat UI component
-│   ├── ImageEditor.tsx     # NEW: Image editing UI component
-│   ├── ProgressTracker.tsx # Quiz progress chart component
-│   ├── QuizView.tsx        # Quiz UI component
-│   └── icons.tsx           # Reusable SVG icons
+│   ├── ...               # React components
 └── services/
     └── geminiService.ts    # Service for all Gemini API calls
 ```
