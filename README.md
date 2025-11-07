@@ -94,6 +94,37 @@ npm run dev
 The application should now be running. Open your web browser and navigate to the URL provided in the terminal (usually `http://localhost:5173`).
 
 
+## Deployment
+
+You can deploy this application for free on static hosting platforms like Vercel or Netlify. These platforms are ideal for Vite projects.
+
+### Deploying to Vercel (Recommended)
+
+Follow these steps to deploy your assistant to Vercel:
+
+1.  **Push to a Git Repository**: Ensure your project code is pushed to a GitHub, GitLab, or Bitbucket repository.
+
+2.  **Sign up for Vercel**: Create a free account on [Vercel](https://vercel.com/) and connect it to your Git provider.
+
+3.  **Import Your Project**:
+    - From your Vercel dashboard, click "Add New... -> Project".
+    - Select your project's repository.
+
+4.  **Configure Project Settings**: Vercel is smart and will likely detect that you're using Vite, applying the correct settings. Verify they are as follows:
+    - **Framework Preset**: `Vite`
+    - **Build Command**: `npm run build`
+    - **Output Directory**: `dist`
+    - **Install Command**: `npm install`
+
+5.  **Set Environment Variables**: This is the most important step to ensure the app can connect to the Gemini API.
+    - In your project's settings on Vercel, navigate to the "Environment Variables" section.
+    - Add a new variable with the following details:
+        - **Name**: `API_KEY`
+        - **Value**: Paste your Google Gemini API key here.
+    - Vercel will securely store this key and make it available during the build process.
+
+6.  **Deploy**: Click the "Deploy" button. Vercel will now build and deploy your application. Once it's complete, you will be given a public URL where your AI assistant is live!
+
 ## Project Structure
 ```
 .
